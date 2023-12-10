@@ -24,7 +24,7 @@ jobs:
           
       - name: Build Docker Image and Push
         run: |
-           docker build -t gpavankumarreddy/dilipreddy:latest .
+           sudo docker build -t gpavankumarreddy/dilipreddy:latest .
            echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u gpavankumarreddy --password-stdin
-           docker push gpavankumarreddy/dilipreddy:latest
-           docker run -d -p 8081:8080 --name gpavan gpavankumarreddy/dilipreddy:latest
+           sudo docker push gpavankumarreddy/dilipreddy:latest
+           sudo docker run -d -p 8081:8080 --name gpavan gpavankumarreddy/dilipreddy:latest
