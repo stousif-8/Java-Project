@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-# Run Maven build
 RUN mvn clean install
 
 # Use an official OpenJDK runtime as a base image
