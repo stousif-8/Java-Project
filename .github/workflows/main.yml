@@ -1,4 +1,4 @@
-name: Maven Build and Run Docker Image
+name: Build and Push Docker Image
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - master
 
 jobs:
-  build-and-run:
-    runs-on: self-hosted
+  build-and-push:
+    runs-on: self-hosted  # Specify your self-hosted runner here
 
     steps:
       - name: Checkout Code
@@ -22,17 +22,8 @@ jobs:
       - name: Build with Maven
         run: mvn package
 
-      - name: List Maven Build Output
-        run: ls -R target
-
       - name: Build Docker Image
         run: |
-          sudo docker build -t gpavankumarreddy1/helloworld:latest .
-          echo ${{ secrets.DOCKERHUB_PASSWORD }} | sudo docker login -u gpavankumarreddy --password-stdin
-          sudo docker push gpavankumarreddy/helloworld:latest
-
-      - name: Run Docker Container
-        run: sudo docker run -d -p 8080:8081 --name babu1 gpavankumarreddy/helloworld:latest
-
-      - name: LIST Container
-        run: sudo docker ps
+          sudo docker build -t gpavankumarreddy/dilipreddy:latest .
+          echo '{"auths":{"https://index.docker.io/v1/":{"auth":"'$(echo -n ${{ secrets.DOCKERHUB_USERNAME }}:$DOCKERHUB_PASSWORD | base64 -w 0)'","email":"gpavankumarreddy98@gmail.com"}}}' > $HOME/.docker/config.json
+          sudo docker push gpavankumarreddy/dilipreddy:latest
