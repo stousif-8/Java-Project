@@ -26,10 +26,13 @@ jobs:
         run: ls -R target
 
       - name: Build Docker Image
-        run: sudo docker build -t gpavankumarreddy1/helloworld:latest .
+        run: |
+          sudo docker build -t gpavankumarreddy1/helloworld:latest .
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | sudo docker login -u gpavankumarreddy1 --password-stdin
+          sudo docker push gpavankumarreddy1/helloworld:latest
 
       - name: Run Docker Container
         run: sudo docker run -d -p 8080:8081 --name babu1 gpavankumarreddy1/helloworld:latest
-        
+
       - name: LIST Container
         run: sudo docker ps
