@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-run:
-    runs-on: self-hosted  # Use a self-hosted runner
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Code
@@ -28,7 +28,7 @@ jobs:
       - name: Build Docker Image
         run: |
           sudo docker build -t gpavankumarreddy1/helloworld:latest .
-          echo ${{ secrets.DOCKERHUB_TOKEN }} | sudo docker login -u gpavankumarreddy1 --password-stdin
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} | sudo docker login -u gpavankumarreddy --password-stdin
           sudo docker push gpavankumarreddy1/helloworld:latest
 
       - name: Run Docker Container
