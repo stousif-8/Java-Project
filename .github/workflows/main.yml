@@ -29,7 +29,7 @@ jobs:
         run: sudo docker build -t gpavankumarreddy/helloworld:latest .
 
       - name: Run Docker Container
-        run: sudo docker run -p 8081:8080 -d gpavankumarreddy/helloworld:latest
+        run: sudo docker run -d -p 8080:8081 --name babu gpavankumarreddy/helloworld:latest
         
       - name: LIST Container
         run: sudo docker ps
