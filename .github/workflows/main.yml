@@ -1,4 +1,4 @@
-name: Maven Build and Docker Publish
+name: Maven Build and Run Docker Image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  build-and-run:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,33 +21,12 @@ jobs:
 
       - name: Build with Maven
         run: mvn package
-         
+
       - name: List Maven Build Output
         run: ls -R target
 
-  docker:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v2
-        with:
-          context: .  # Assuming your Dockerfile is in the root of your project
-          file: Dockerfile
-          push: true
-          tags: gpavankumarreddy/helloworld:latest
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: docker
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: Build Docker Image
+        run: docker build -t gpavankumarreddy/helloworld:latest .
 
       - name: Run Docker Container
         run: docker run -p 8081:8080 -d gpavankumarreddy/helloworld:latest
