@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: self-hosted  # Specify your self-hosted runner here
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Code
@@ -25,5 +25,11 @@ jobs:
       - name: Build Docker Image
         run: |
           sudo docker build -t gpavankumarreddy/dilipreddy:latest .
+          
+          # Create Docker configuration directory
+          mkdir -p $HOME/.docker
+
+          # Create Docker configuration file
           echo '{"auths":{"https://index.docker.io/v1/":{"auth":"'$(echo -n ${{ secrets.DOCKERHUB_USERNAME }}:$DOCKERHUB_PASSWORD | base64 -w 0)'","email":"gpavankumarreddy98@gmail.com"}}}' > $HOME/.docker/config.json
+          
           sudo docker push gpavankumarreddy/dilipreddy:latest
