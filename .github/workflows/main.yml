@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -21,7 +25,6 @@ on:
       - name: List Maven Build Output
         run: ls -R target
 
-
   docker:
     runs-on: ubuntu-latest
     needs: build
@@ -33,10 +36,10 @@ on:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: Dockerfile  # Specify the path to your Dockerfile
+          context: .  # Assuming your Dockerfile is in the root of your project
+          file: Dockerfile
           push: true
-          tags: your-docker-username/your-docker-image-name:latest
+          tags: gpavankumarreddy/helloworld:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,4 +50,4 @@ on:
         uses: actions/checkout@v2
 
       - name: Run Docker Container
-        run: docker run -p 8081:8080 -d your-docker-username/your-docker-image-name:latest
+        run: docker run -p 8081:8080 -d gpavankumarreddy/helloworld:latest
