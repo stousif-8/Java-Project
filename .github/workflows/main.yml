@@ -21,6 +21,10 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install -B
+         
+      - name: List Maven Build Output
+        run: ls -R target
+
 
   docker:
     runs-on: ubuntu-latest
