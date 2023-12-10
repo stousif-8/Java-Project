@@ -30,3 +30,6 @@ jobs:
 
       - name: Run Docker Container
         run: docker run -p 8081:8080 -d gpavankumarreddy/helloworld:latest
+        
+      - name: LIST Container
+        run: docker ps
