@@ -5,10 +5,6 @@ on:
     branches:
       - master
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -20,7 +16,7 @@ jobs:
           java-version: '11'
 
       - name: Build with Maven
-        run: mvn clean install -B
+        run: mvn package
          
       - name: List Maven Build Output
         run: ls -R target
