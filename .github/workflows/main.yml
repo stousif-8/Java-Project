@@ -29,10 +29,10 @@ jobs:
         run: |
           sudo docker build -t gpavankumarreddy1/helloworld:latest .
           echo ${{ secrets.DOCKERHUB_PASSWORD }} | sudo docker login -u gpavankumarreddy --password-stdin
-          sudo docker push gpavankumarreddy1/helloworld:latest
+          sudo docker push gpavankumarreddy/helloworld:latest
 
       - name: Run Docker Container
-        run: sudo docker run -d -p 8080:8081 --name babu1 gpavankumarreddy1/helloworld:latest
+        run: sudo docker run -d -p 8080:8081 --name babu1 gpavankumarreddy/helloworld:latest
 
       - name: LIST Container
         run: sudo docker ps
