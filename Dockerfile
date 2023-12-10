@@ -1,10 +1,7 @@
-# Use an official Maven image to build the application
 FROM maven:3.8.4-openjdk-11-slim AS build
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the source code into the container
 COPY . .
 
 # Run Maven build
