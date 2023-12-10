@@ -26,10 +26,10 @@ jobs:
         run: ls -R target
 
       - name: Build Docker Image
-        run: sudo docker build -t gpavankumarreddy/helloworld:latest .
+        run: sudo docker build -t gpavankumarreddy1/helloworld:latest .
 
       - name: Run Docker Container
-        run: sudo docker run -d -p 8080:8081 --name babu gpavankumarreddy/helloworld:latest
+        run: sudo docker run -d -p 8080:8081 --name babu1 gpavankumarreddy1/helloworld:latest
         
       - name: LIST Container
         run: sudo docker ps
