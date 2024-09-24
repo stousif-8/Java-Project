@@ -1,0 +1,35 @@
+name: Code Analysis
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sonarqube:
+    runs-on: self-hosted  # Adjust to your runner (e.g., 'ubuntu-latest' if using GitHub-hosted runners)
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Java 17 environment using the Eclipse Temurin JDK
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Step 3: Build the Java project using Maven (adjust this to Gradle or other build tools if needed)
+      - name: Compile Java project
+        run: |
+          mvn clean install
+
+      # Step 4: Run SonarQube analysis using the SonarQube Scanner CLI
+      - name: Run SonarQube Scanner
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=Java-Project \
+            -Dsonar.host.url=http://54.169.88.139:9000 \
+            -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }} \
+            -Dsonar.java.binaries=target/classes  # Path to the compiled classes
