@@ -1,0 +1,25 @@
+name: Code Analysis
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sonarqube:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+
+      - name: Run SonarQube Scanner
+        run: |
+          sonar-scanner \
+          -Dsonar.projectKey=star-agile-insurance-project \
+          -Dsonar.host.url=http://13.201.8.107:9000 \
+          -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
