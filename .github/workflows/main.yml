@@ -18,9 +18,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'  # Specify the JDK distribution
 
+      - name: Compile Java project
+        run: |
+          mvn clean install  # Replace this with your build command (e.g., Maven, Gradle)
+
       - name: Run SonarQube Scanner
         run: |
           sonar-scanner \
           -Dsonar.projectKey=star-agile-insurance-project \
           -Dsonar.host.url=http://13.201.8.107:9000 \
-          -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+          -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }} \
+          -Dsonar.java.binaries=target/classes  # Specify the path to compiled classes
