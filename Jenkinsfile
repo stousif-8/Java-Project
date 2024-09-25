@@ -5,7 +5,7 @@ node {
     
     stage('Preparation') {
         // Checkout the project from GitHub
-        git clone https://github.com/stousif-8/Java-Project.git
+        git 'https://github.com/stousif-8/Java-Project.git'
         
         // Define the Maven tool configured in Jenkins
         mvnHome = tool 'M3'
@@ -29,7 +29,7 @@ node {
     
     stage('Docker Run') {
         // Run the Docker container
-        sh "docker run -d -p 8080:8081 ${appName}:${env.BUILD_ID}"
+        sh "docker run -d -p 8080:8080 ${appName}:${env.BUILD_ID}"
     }
     
     stage('Archive') {
