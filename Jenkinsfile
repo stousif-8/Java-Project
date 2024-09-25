@@ -5,7 +5,7 @@ node {
     
     stage('Preparation') {
         // Checkout the project from GitHub
-        git 'https://github.com/stousif-8/Java-Project.git'
+        git clone https://github.com/stousif-8/Java-Project.git
         
         // Define the Maven tool configured in Jenkins
         mvnHome = tool 'M3'
