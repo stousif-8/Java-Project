@@ -1,11 +1,10 @@
 node {
     def mvnHome = tool 'M3'  // Defining Maven home
     def appName = 'java-maven-app'
-    def dockerImage
     
     stage('Preparation') {
         // Checkout the project from GitHub
-        git branch: 'main', url: 'https://github.com/stousif-8/Java-Project.git' // Ensure 'main' is the correct branch name
+        git branch: 'main', url: 'https://github.com/stousif-8/Java-Project.git'  // Ensure 'main' is the correct branch name
     }
         
     stage('Build') {
@@ -20,17 +19,17 @@ node {
     }
     
     stage('Docker Build') {
-        // Build the Docker image
-        dockerImage = docker.build("${appName}:${env.BUILD_ID}")  // Use BUILD_ID to tag the image
+        // Build Docker image, tagging it with 'latest' and using the current directory's Dockerfile
+        sh "docker build -t ${appName}:latest ."
     }
     
     stage('Docker Run') {
-        // Run the Docker container
-        sh "docker run -d -p 8080:8080 ${appName}:${env.BUILD_ID}"  // Run the container, ensure the port is correct
+        // Run the Docker container using the image built in the previous stage
+        sh "docker run -d -p 8080:8081 ${appName}:latest"
     }
     
     stage('Archive') {
-        // Archive JAR file as a build artifact
-        archiveArtifacts 'target/*.jar'  // Archive the generated JAR file
+        // Archive the generated JAR file as a build artifact
+        archiveArtifacts 'target/*.jar'
     }
 }
