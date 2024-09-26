@@ -25,7 +25,7 @@ node {
     
     stage('Docker Run') {
         // Run the Docker container using the image built in the previous stage
-        sh "docker run -d -p 8080:8081 ${appName}:latest"
+        sh "docker run -d -p 8081:8081 ${appName}:latest"
     }
     
     stage('Archive') {
