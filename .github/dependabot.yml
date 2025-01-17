@@ -1,0 +1,21 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+# .github/dependabot.yml
+
+version: 2
+updates:
+  # For Maven dependencies
+  - package-ecosystem: "maven"
+    directory: "/"  # The root directory where pom.xml is located
+    schedule:
+      interval: "weekly"  # Dependabot will check for Maven updates weekly
+
+  # For Docker image updates
+  - package-ecosystem: "docker"
+    directory: "/"  # The root directory where the Dockerfile is located
+    schedule:
+      interval: "weekly"  # Dependabot will check for Docker image updates weekly
+
